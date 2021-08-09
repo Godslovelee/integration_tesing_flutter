@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  macos_ui:
+  #macos_ui:
   integration_test: ^1.0.1
 
 

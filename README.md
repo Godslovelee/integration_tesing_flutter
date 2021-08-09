@@ -4,20 +4,64 @@ Running tests is a very essential phase in the development lifecycle of an appli
 whether its a unit, widget test or integration test,
 here's a sample of how integration test is done using the flutter driver library
 ...
+#Requirements
+Ensure to add integration_test: ^1.0.1
+to your pubspec.yaml,
+you could also enable multidex for compatibility in some android versions..
 
-email: godslovelee@yahoo.com
-type
-A new Flutter application.
 
-## Getting Started
+created a new test file...
 
-This project is a starting point for a Flutter application.
+void main(){
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-A few resources to get you started if this is your first Flutter project:
+  testWidgets("When a user inputs a text", (WidgetTester tester) async {
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    await tester.pumpWidget(MyApp());
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TypingPage),findsOneWidget);
+    expect(find.byType(DisplayPage), findsNothing);
+
+    expect(find.text('Input at least one character'), findsOneWidget);
+
+
+
+
+
+
+
+  });
+  testWidgets("When the User inputs a field Correctly according to the text field requirement",
+          (WidgetTester tester)async{
+
+    await tester.pumpWidget(MyApp());
+
+    final inputText = 'Hello there, this is an input.';
+
+    await tester.enterText(find.byKey(Key('your-text-field')), inputText);
+
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+
+    //expect(find.byType(TypingPage), findsNothing);
+    expect(find.byType(DisplayPage), findsOneWidget);
+    expect(find.text(inputText), findsOneWidget);
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TypingPage),findsOneWidget);
+    expect(find.byType(DisplayPage), findsNothing);
+
+    expect(find.text(inputText), findsNothing);
+
+  });
+
+
+
+}
