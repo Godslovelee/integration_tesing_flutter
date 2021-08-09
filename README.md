@@ -5,8 +5,8 @@ whether its a unit, widget test or integration test,
 here's a sample of how integration test is done using the flutter driver library
 ...
 
-
-
+email: godslovelee@yahoo.com
+type
 A new Flutter application.
 
 ## Getting Started
