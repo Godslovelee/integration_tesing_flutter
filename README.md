@@ -1,4 +1,4 @@
-# integration_testing
+integration_testing
 
 Running tests is a very essential phase in the development lifecycle of an application,
 whether its a unit, widget test or integration test,
