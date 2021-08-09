@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Testing App',
+      title: 'IntTesting App',
       home: TypingPage(),
     );
   }
