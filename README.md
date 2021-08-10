@@ -12,6 +12,7 @@ you could also enable multidex for compatibility in some android versions..
 
 created a new test file...
 
+...dart
 void main(){
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
