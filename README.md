@@ -1,34 +1,4 @@
 
-
-
-### Stripe
-
-- <https://stripe.dev/stripe-android/index.html?com/stripe/android/Stripe.html>
-
-Aims to provide high-level functionality similar to the official mobile Stripe SDKs.
-
-### CustomerSession
-
-_Requires a Stripe ephemeral key._
-
-- <https://stripe.com/docs/mobile/android/customer-information#customer-session-no-ui>
-- <https://stripe.com/docs/mobile/android/standard#creating-ephemeral-keys>
-
-Provides functionality similar to CustomerSession in the Stripe Android SDK.
-
-### StripeApi
-
-- <https://stripe.com/docs/api>
-
-Provides basic low-level methods to access the Stripe REST API. 
-
-- Limited to the APIs that can be used with a public key or ephemeral key.
-- Library methods map to a Stripe API call with the same name.
-- Additional parameters can be provided as an optional argument.
-
-
- _`Stripe` and `CustomerSession` use this internally._
-
 ## Initialization
 
 All classes offer a singleton instance that can be initiated by calling the `init(...)` methods and then accessed through `.instance`.
