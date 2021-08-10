@@ -4,7 +4,6 @@
 All classes offer a singleton instance that can be initiated by calling the `init(...)` methods and then accessed through `.instance`.
 Regular instances can also be created using the constructor, which allows them to be managed by e.g. dependency injection instead.
 
-### Stripe
 
 ```dart
 await tester.pumpWidget(MyApp());
@@ -17,39 +16,92 @@ await tester.pumpWidget(MyApp());
     expect(find.text('Input at least one character'), findsOneWidget);
 ```
 
-### CustomerSession
-
-The function that retrieves the ephemeral key must return the JSON response as a plain string.
-
-```dart
-CustomerSession.init((apiVersion) => server.getEphemeralKeyFromServer(apiVersion));
-// or, to manage your own instances
-final session = CustomerSession((apiVersion) => server.getEphemeralKeyFromServer(apiVersion))
-```
-
-### StripeApi
-
-```dart
-StripeApi.init("pk_xxx");
-// or, to manage your own instances
-final stripeApi = StripeApi("pk_xxx);
-```
+#
 
 ## UI
 
-Use `CardForm` to add or edit credit card details, or build your own form using the pre-built FormFields.
+
 
 ```dart
-final formKey = GlobalKey<FormState>();
-final card = StripeCard();
-
-final form = CardForm(card:card, formKey: formKey);
- 
-onPressed: () async {
-                if (formKey.currentState.validate()) {
-                  formKey.currentState.save();
-                }
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'IntTesting App',
+      home: TypingPage(),
+    );
+  }
 }
+
+class TypingPage extends StatefulWidget {
+  TypingPage({Key key}) : super(key: key);
+
+  @override
+  _TypingPageState createState() => _TypingPageState();
+}
+
+class _TypingPageState extends State<TypingPage> {
+  TextEditingController _controller;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Typing'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Form(
+            key: _formKey,
+            child: TextFormField(
+              key: Key('your-text-field'),
+              controller: _controller,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Your Text',
+              ),
+              validator: (value) =>
+              value.isEmpty ? 'Input at least one character' : null,
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.arrow_forward),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return DisplayPage(
+                    displayText: _controller.text,
+                    doOnInit: () => Future.microtask(() => _controller.clear()),
+                  );
+                },
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+
+
 
 
 ```
