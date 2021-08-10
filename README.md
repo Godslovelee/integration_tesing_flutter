@@ -7,9 +7,14 @@ Regular instances can also be created using the constructor, which allows them t
 ### Stripe
 
 ```dart
-Stripe.init("pk_xxx");
-// or, to manage your own instance, or multiple instances
-final stripe = Stripe("pk_xxx);
+await tester.pumpWidget(MyApp());
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TypingPage),findsOneWidget);
+    expect(find.byType(DisplayPage), findsNothing);
+
+    expect(find.text('Input at least one character'), findsOneWidget);
 ```
 
 ### CustomerSession
