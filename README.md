@@ -1,8 +1,6 @@
 # implementation
 An app written in dart,
-A forum where people interested in hacking stuffs
-can join minds together and release a forum for people to
-read, blogs, docs and the likes
+Well structured algorithm in writing a basic integration testing in flutter
 ## Initialization
 
 All classes offer a singleton instance that can be initiated by calling the `init(...)` methods and then accessed through `.instance`.
